@@ -1,0 +1,17 @@
+{
+	"path": "cert-manager/staged-upgrade-test/cert-manager-staged-upgrade-test-chain.yaml",
+	"owners": {
+		"approvers": [
+			"xingxingxia",
+			"lunarwhite",
+			"swghosh",
+			"TrilokGeer"
+		],
+		"reviewers": [
+			"xingxingxia",
+			"lunarwhite",
+			"swghosh",
+			"TrilokGeer"
+		]
+	}
+}

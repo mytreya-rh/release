@@ -1,0 +1,60 @@
+build_root:
+  image_stream_tag:
+    name: release
+    namespace: openshift
+    tag: golang-1.22
+resources:
+  '*':
+    requests:
+      cpu: 100m
+      memory: 200Mi
+tests:
+- always_run: false
+  as: e2e-upgrade-staged-4-18
+  optional: true
+  steps:
+    cluster_profile: aws
+    env:
+      STAGED_INDEX_IMAGE: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-4-18/cert-manager-operator-index-4-18:latest
+      UPGRADE_CHANNEL: stable-v1.19
+    workflow: cert-manager-staged-upgrade-test
+- always_run: false
+  as: e2e-upgrade-staged-4-19
+  optional: true
+  steps:
+    cluster_profile: aws
+    env:
+      STAGED_INDEX_IMAGE: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-4-19/cert-manager-operator-index-4-19:latest
+      UPGRADE_CHANNEL: stable-v1.19
+    workflow: cert-manager-staged-upgrade-test
+- always_run: false
+  as: e2e-upgrade-staged-4-20
+  optional: true
+  steps:
+    cluster_profile: aws
+    env:
+      STAGED_INDEX_IMAGE: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-4-20/cert-manager-operator-index-4-20:latest
+      UPGRADE_CHANNEL: stable-v1.19
+    workflow: cert-manager-staged-upgrade-test
+- always_run: false
+  as: e2e-upgrade-staged-4-21
+  optional: true
+  steps:
+    cluster_profile: aws
+    env:
+      STAGED_INDEX_IMAGE: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-4-21/cert-manager-operator-index-4-21:latest
+      UPGRADE_CHANNEL: stable-v1.19
+    workflow: cert-manager-staged-upgrade-test
+- always_run: false
+  as: e2e-upgrade-staged-4-22
+  optional: true
+  steps:
+    cluster_profile: aws
+    env:
+      STAGED_INDEX_IMAGE: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-4-22/cert-manager-operator-index-4-22:latest
+      UPGRADE_CHANNEL: stable-v1.19
+    workflow: cert-manager-staged-upgrade-test
+zz_generated_metadata:
+  branch: main
+  org: openshift
+  repo: cert-manager-operator-release

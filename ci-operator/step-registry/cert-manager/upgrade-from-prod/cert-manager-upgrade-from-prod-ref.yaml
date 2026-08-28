@@ -1,0 +1,41 @@
+ref:
+  as: cert-manager-upgrade-from-prod
+  from_image:
+    namespace: ocp
+    name: "4.18"
+    tag: upi-installer
+  cli: latest
+  grace_period: 30m
+  commands: cert-manager-upgrade-from-prod-commands.sh
+  resources:
+    requests:
+      cpu: 100m
+      memory: 200Mi
+  env:
+  - name: STAGED_INDEX_IMAGE
+    documentation: |-
+      Konflux-built staged index image containing the operator bundle to test.
+      Example: quay.io/redhat-user-workloads/cert-manager-oape-tenant/cert-manager-operator-index-4-21/cert-manager-operator-index-4-21:latest
+  - name: UPGRADE_CHANNEL
+    default: stable-v1.19
+    documentation: OLM channel to test the upgrade in.
+  - name: FROM_VERSION
+    default: ""
+    documentation: |-
+      Specific version to upgrade from (e.g. 1.19.1). If empty, the script
+      discovers all valid upgrade paths from the channel.yaml in the source
+      checkout and tests them sequentially.
+  - name: OPERATOR_PACKAGE
+    default: openshift-cert-manager-operator
+    documentation: OLM package name for the operator.
+  credentials:
+  - namespace: test-credentials
+    name: openshift-custom-mirror-registry
+    mount_path: /var/run/vault/mirror-registry
+  documentation: |-
+    Installs the cert-manager operator from the production redhat-operators
+    catalog at a specified (or discovered) version, then swaps to a staged
+    Konflux index image and verifies OLM resolves the upgrade successfully.
+    Includes operand health checks and a basic cert issuance smoke test.
+    Discovers valid upgrade paths by parsing channel.yaml from the source
+    checkout and tests all paths sequentially within a single run.

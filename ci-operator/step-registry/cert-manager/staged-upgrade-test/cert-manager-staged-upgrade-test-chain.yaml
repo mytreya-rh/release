@@ -1,0 +1,11 @@
+chain:
+  as: cert-manager-staged-upgrade-test
+  steps:
+  - ref: enable-qe-catalogsource-staging
+  - ref: cert-manager-upgrade-from-prod
+  documentation: |-
+    End-to-end staged upgrade test for the cert-manager operator.
+    First injects stage registry auth and mirror policy via the shared
+    enable-qe-catalogsource-staging step, then runs the cert-manager
+    upgrade-from-prod test which installs from production catalog and
+    verifies upgrade to a staged Konflux-built index image.
